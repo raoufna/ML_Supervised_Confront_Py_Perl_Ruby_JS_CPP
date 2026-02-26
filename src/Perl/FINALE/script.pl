@@ -3,9 +3,26 @@ my $time = time;
 
 use strict;
 use warnings;
-use Text::CSV;
-use Statistics::Regression;
 use List::Util qw(sum);
+
+my @modules = (
+    'Text::CSV',
+    'Statistics::Regression',
+);
+print "---INSTALLAZIONE MODULI---\n";
+foreach my $module (@modules) {
+    eval "use $module";
+    if ($@) {
+        print "Modulo $module non trovato. Installazione in corso...\n";
+        system("cpan -i $module") == 0
+            or die "Errore durante l'installazione di $module: $!";
+    } else {
+        print "Modulo $module già installato.\n";
+    }
+}
+print "\n---AVVIO PROGRAMMA---\n";
+
+
 
 #CONFIGURAZIONE
 my $dataset = $ARGV[0] || 'neuroblastoma'; #Dataset input, default 'neuroblastoma'
@@ -65,7 +82,7 @@ for my $i (0 .. $#data) {
 
 #CALCOLO MCC
 my $mcc = mccEvaluator($predictions, $real_values); # Calcola il MCC usando le previsioni e i valori reali
-my $finalTime = time - $time; #fine tempo
+my $finalTime = (time+0.0) - $time; #fine tempo
 
 #RISULTATI
 FINAL_print($dataset, $mcc, $finalTime); #Stampa finale
@@ -77,6 +94,7 @@ sub FINAL_print{
     print "DATASET: $_[0] \n";
     print "MCC: $_[1]\n";
     print "TIME: $_[2] seconds\n";
+    printf "%.5f\n", $_[2];
     print "-" x 40 . "\n";
 }
 
