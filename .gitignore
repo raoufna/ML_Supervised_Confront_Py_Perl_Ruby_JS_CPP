@@ -1,0 +1,4 @@
+node_modules/
+**/emission.csv
+../emission.csv
+emission.csv.*

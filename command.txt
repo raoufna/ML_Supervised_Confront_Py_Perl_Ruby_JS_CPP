@@ -1,0 +1,30 @@
+RUBY
+ruby .\script.rb depression_heart_failure
+ruby .\script.rb diabetes_type_1
+ruby .\script.rb neuroblastoma
+ruby .\script.rb sepsis_SIRS
+ruby .\script.rb spain_cardiac_arrest
+
+PYTHON
+python .\script.py depression_heart_failure
+python .\script.py diabetes_type_1
+python .\script.py neuroblastoma
+python .\script.py sepsis_SIRS
+python .\script.py spain_cardiac_arrest
+
+PERL
+perl .\script.pl depression_heart_failure
+perl .\script.pl diabetes_type_1
+perl .\script.pl neuroblastoma
+perl .\script.pl sepsis_SIRS
+perl .\script.pl spain_cardiac_arrest
+
+JAVASCRIPT
+node .\script.js depression_heart_failure
+node .\script.js diabetes_type_1
+node .\script.js neuroblastoma
+node .\script.js sepsis_SIRS
+node .\script.js spain_cardiac_arrest
+
+C++
+./run.sh
