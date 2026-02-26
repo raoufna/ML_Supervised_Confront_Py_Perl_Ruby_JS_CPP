@@ -1,8 +1,22 @@
 #START
 time = Time.now
 
-require 'csv'
-require 'ruby_linear_regression'
+#CHECK LIBRERIE
+def ensure_gem_installed(gem_name)
+  begin
+    require gem_name
+  rescue LoadError
+    puts "#{gem_name} non trovato, installazione in corso..."
+    system("gem install #{gem_name}")
+    Gem.clear_paths
+    require gem_name
+  end
+end
+
+ensure_gem_installed('csv')
+ensure_gem_installed('ruby_linear_regression')
+
+puts "All gems ready!"
 
 #METODI
 def mccEvaluator(real_values, predictions)
