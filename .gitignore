@@ -2,3 +2,10 @@ node_modules/
 **/emission.csv
 ../emission.csv
 emission.csv.*
+**.bak
+src/C++/FINALE(WIN)/*.csv
+src/C++/FINALE/*.csv
+src/Python/FINALE/*.csv
+src/Perl/FINALE/*.csv
+src/Ruby/FINALE/*.csv
+src/JavaScript/FINALE/*.csv
