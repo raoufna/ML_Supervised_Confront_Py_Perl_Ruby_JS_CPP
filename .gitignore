@@ -9,3 +9,5 @@ src/Python/FINALE/*.csv
 src/Perl/FINALE/*.csv
 src/Ruby/FINALE/*.csv
 src/JavaScript/FINALE/*.csv
+**.o
+**.exe
