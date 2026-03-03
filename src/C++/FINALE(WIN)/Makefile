@@ -17,6 +17,7 @@ INCLFLAGS := -I. -I"$(MSYS_BASE)/include"
 CXXFLAGS  += $(INCLFLAGS)
 OBJS := $(SRC:.cpp=.o)
 LIBS := $(addprefix -l,$(LIBS_NAME))
+CLEAN_LIST := $(TARGET) $(OBJS)
 
 default: all
 
@@ -24,8 +25,10 @@ $(TARGET): $(OBJS)
 	$(CXX) $(OBJS) -o $(TARGET) $(LDFLAGS) $(LIBS)
 
 
-.PHONY: all clean
+.PHONY: all
 all: $(TARGET)
 
+.PHONY: clean
 clean:
-	del /f $(TARGET) $(OBJS)
+	@echo CLEAN $(CLEAN_LIST)
+	@rm -f $(CLEAN_LIST)

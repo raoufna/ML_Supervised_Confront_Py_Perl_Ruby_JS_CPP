@@ -7,9 +7,10 @@ tracker = EmissionsTracker()
 tracker.start()
 
 try:
-    argomenti = ["mingw32-make", "./main.exe"]    
-    for i in range(len(argomenti)):
-        subprocess.run(argomenti[i], check=True)
+    subprocess.run("mingw32-make", check=True)
+
+    print("Esecuzione del programma C++...")
+    subprocess.run(["./main.exe"], check=True)
 
 finally:
     tracker.stop()
