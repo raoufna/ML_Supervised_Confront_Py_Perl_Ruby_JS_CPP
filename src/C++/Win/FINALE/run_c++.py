@@ -1,17 +1,16 @@
-import sys
-print(sys.executable)
-
 from codecarbon import EmissionsTracker
 import subprocess
 import pandas as pd
+import sys
 
 tracker = EmissionsTracker()
 tracker.start()
 
 try:
-    argomenti = ["python", "script.py", "depression_heart_failure"]
-    
-    subprocess.run(argomenti, check=True)
+    argomenti = ["mingw32-make", "./main.exe"]    
+    for i in range(len(argomenti)):
+        subprocess.run(argomenti[i], check=True)
+
 finally:
     tracker.stop()
     # Carica il file
