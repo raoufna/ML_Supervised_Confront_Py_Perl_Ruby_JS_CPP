@@ -4,31 +4,31 @@ libraries = ['csv-parser', 'ml-regression-multivariate-linear'];
 
 const { execSync } = require('child_process');
 
-function isPackageInstalled(pkg) {
+function isPackageInstalled(lib) {
   try {
     // Controlla se il pacchetto è installato localmente
-    execSync(`npm list ${pkg}`, { stdio: 'ignore' });
+    execSync(`npm list ${lib}`, { stdio: 'ignore' });
     return true;
   } catch (err) {
     return false;
   }
 }
 
-function installPackage(pkg) {
-  console.log(`Installing ${pkg}...`);
+function installPackage(lib) {
   try {
-    execSync(`npm install ${pkg}`, { stdio: 'inherit' });
-    console.log(`${pkg} installed successfully.`);
+    execSync(`npm install ${lib}`, { stdio: 'inherit' }); // INSTALLA PACCHETTO, stdio: 'inherit' mostra l'output del processo in tempo reale
+    console.log(`${lib} installed successfully.`);
   } catch (err) {
-    console.error(`Failed to install ${pkg}:`, err);
+    console.error(`Failed to install ${lib}:`, err);
   }
 }
 
-libraries.forEach(pkg => {
-  if (!isPackageInstalled(pkg)) {
-    installPackage(pkg);
+libraries.forEach(lib => {
+  if (!isPackageInstalled(lib)) {
+    console.log(`${lib} not found. Installing...`);
+    installPackage(lib);
   } else {
-    console.log(`${pkg} is already installed.`);
+    console.log(`${lib} is already installed.`);
   }
 });
 console.log('All required packages are installed.\n');

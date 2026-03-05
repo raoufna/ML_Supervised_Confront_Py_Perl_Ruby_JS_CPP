@@ -5,24 +5,25 @@ use strict;
 use warnings;
 use List::Util qw(sum);
 
-my @modules = (
-    'Text::CSV',
-    'Statistics::Regression',
-);
-print "---INSTALLAZIONE MODULI---\n";
-foreach my $module (@modules) {
-    eval "use $module";
+#CHECK AND INSTALL REQUIRED LIBRARIES
+print "-" x 40 . "\n";
+print "Checking required libraries...\n";
+
+my @libraries = ('Text::CSV','Statistics::Regression');
+foreach my $lib (@libraries) {
+    eval "use $lib";
     if ($@) {
-        print "Modulo $module non trovato. Installazione in corso...\n";
-        system("cpan -i $module") == 0
-            or die "Errore durante l'installazione di $module: $!";
+        print "$lib not found. Installing...\n";
+        system("cpan -i $lib") == 0
+            or die "Error while installing $lib: $!";
     } else {
-        print "Modulo $module già installato.\n";
+        print "$lib is already installed.\n";
     }
 }
-print "\n---AVVIO PROGRAMMA---\n";
 
-
+print "All required libraries are available.\n";
+print "Starting the program...\n";
+#PROGRAM STARTS HERE
 
 #CONFIGURAZIONE
 my $dataset = $ARGV[0] || 'neuroblastoma'; #Dataset input, default 'neuroblastoma'

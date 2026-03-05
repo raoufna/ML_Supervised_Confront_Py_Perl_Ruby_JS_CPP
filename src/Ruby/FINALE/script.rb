@@ -1,22 +1,29 @@
 #START
 time = Time.now
 
-#CHECK LIBRERIE
-def ensure_gem_installed(gem_name)
+#CHECK E INSTALL REQUIRED LIBRARIES
+puts "-" * 40 + "\n"
+puts "Checking required libraries...\n"
+
+libraries = ['csv', 'ruby_linear_regression']
+def installPackage(lib)
   begin
-    require gem_name
+    require lib
+    puts "#{lib} is already installed."
   rescue LoadError
-    puts "#{gem_name} non trovato, installazione in corso..."
-    system("gem install #{gem_name}")
+    puts "#{lib} not found. Installing..."
+    system("gem install #{lib}")
     Gem.clear_paths
-    require gem_name
+    require lib
   end
 end
 
-ensure_gem_installed('csv')
-ensure_gem_installed('ruby_linear_regression')
+libraries.each { |lib| installPackage(lib) }
 
-puts "All gems ready!"
+puts "All required libraries are available.\n"
+puts "Starting the program...\n"
+
+#PROGRAM STARTS HERE
 
 #METODI
 def mccEvaluator(real_values, predictions)
