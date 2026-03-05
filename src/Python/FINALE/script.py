@@ -2,7 +2,39 @@
 import time
 start = time.time() # timer start 
 
+import subprocess
 import sys
+
+#CHECK E INSTALL REQUIRED LIBRARIES
+print("-" * 40 + "\n")
+print("Checking required libraries...\n")
+
+bash_command = sys.executable +" -m pip install --upgrade pip"
+# Execute the bash command
+print("bash_command:\n", bash_command)
+result = subprocess.run(bash_command, shell=True, capture_output=True, text=True)
+
+# List of libraries to check/install
+libraries = ["numpy", "pandas", "scikit-learn"]
+
+for lib in libraries:
+    try:
+        __import__(lib)
+        print(f"{lib} is already installed.")
+    except ImportError:
+        print(f"{lib} not found. Installing...")
+        subprocess.check_call([sys.executable, "-m", "pip", "install", lib])
+
+# Print the output and errors (if any)
+print("output:\t", result.stdout)
+error = result.stderr
+if(error):
+    print("errors:\t", error)
+
+print("All required libraries are available.\n")
+print("Starting the program...\n")
+
+#PROGRAM STARTS HERE
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import LeaveOneOut
@@ -51,7 +83,8 @@ def fillNa_with_mean_col(dataset):
 def print_results(dataset, mcc, final_time):
     print(f"Dataset: {dataset}")
     print(f"MCC: {mcc}")
-    print(f"Time: {final_time} seconds")
+    print(f"Time: {final_time} seconds\n")
+    print("-" * 40 + "\n")
 
 if __name__ == "__main__":
     
