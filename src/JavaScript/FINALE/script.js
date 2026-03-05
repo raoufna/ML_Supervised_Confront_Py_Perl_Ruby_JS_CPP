@@ -1,6 +1,39 @@
 const startTime = performance.now(); // Inizio timer
 
-const fs = require('fs');
+libraries = ['csv-parser', 'ml-regression-multivariate-linear'];
+
+const { execSync } = require('child_process');
+
+function isPackageInstalled(pkg) {
+  try {
+    // Controlla se il pacchetto è installato localmente
+    execSync(`npm list ${pkg}`, { stdio: 'ignore' });
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+function installPackage(pkg) {
+  console.log(`Installing ${pkg}...`);
+  try {
+    execSync(`npm install ${pkg}`, { stdio: 'inherit' });
+    console.log(`${pkg} installed successfully.`);
+  } catch (err) {
+    console.error(`Failed to install ${pkg}:`, err);
+  }
+}
+
+libraries.forEach(pkg => {
+  if (!isPackageInstalled(pkg)) {
+    installPackage(pkg);
+  } else {
+    console.log(`${pkg} is already installed.`);
+  }
+});
+console.log('All required packages are installed.\n');
+
+const fs = require('fs'); // Libreria nativa
 const csv = require('csv-parser');
 const MultivariateLinearRegression = require('ml-regression-multivariate-linear');
 const { argv } = require('process');
