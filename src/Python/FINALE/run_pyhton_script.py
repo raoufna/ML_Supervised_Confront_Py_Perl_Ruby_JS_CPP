@@ -1,5 +1,4 @@
 import sys
-print(sys.executable)
 
 from codecarbon import EmissionsTracker
 import subprocess
