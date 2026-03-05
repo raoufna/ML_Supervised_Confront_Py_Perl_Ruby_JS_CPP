@@ -1,9 +1,6 @@
 #START
+use Time::HiRes qw(time);
 my $time = time;
-
-use strict;
-use warnings;
-use List::Util qw(sum);
 
 #CHECK AND INSTALL REQUIRED LIBRARIES
 print "-" x 40 . "\n";
@@ -24,6 +21,12 @@ foreach my $lib (@libraries) {
 print "All required libraries are available.\n";
 print "Starting the program...\n";
 #PROGRAM STARTS HERE
+
+use strict;
+use warnings;
+use List::Util qw(sum);
+use Text::CSV;
+use Statistics::Regression;
 
 #CONFIGURAZIONE
 my $dataset = $ARGV[0] || 'neuroblastoma'; #Dataset input, default 'neuroblastoma'
@@ -83,7 +86,7 @@ for my $i (0 .. $#data) {
 
 #CALCOLO MCC
 my $mcc = mccEvaluator($predictions, $real_values); # Calcola il MCC usando le previsioni e i valori reali
-my $finalTime = (time+0.0) - $time; #fine tempo
+my $finalTime = time - $time; #fine tempo
 
 #RISULTATI
 FINAL_print($dataset, $mcc, $finalTime); #Stampa finale
@@ -94,8 +97,7 @@ FINAL_print($dataset, $mcc, $finalTime); #Stampa finale
 sub FINAL_print{
     print "DATASET: $_[0] \n";
     print "MCC: $_[1]\n";
-    print "TIME: $_[2] seconds\n";
-    printf "%.5f\n", $_[2];
+    printf "TIME: %f seconds\n", $_[2]; #tempo in secondi ARROTONDATO a 6 cifre decimali
     print "-" x 40 . "\n";
 }
 
