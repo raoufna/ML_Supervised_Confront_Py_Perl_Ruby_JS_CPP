@@ -1,23 +1,40 @@
 from codecarbon import EmissionsTracker
-import subprocess
 import pandas as pd
-import sys
+import time
+import subprocess
+import os
+
+# Configurazione dei percorsi MSYS2
+msys_paths = r"C:\msys64\ucrt64\bin;C:\msys64\usr\bin" # Percorso MSYS da aggiungere al PATH
+print(f"Setting MSYS2 paths: {msys_paths}")
+os.environ["PATH"] = msys_paths + os.pathsep + os.environ["PATH"] # Aggiorna MSYS in cima al PATH per questa sessione
+
+# # TEST: Verifica che gcc sia accessibile
+# try:
+#     result = subprocess.run(["gcc", "--version"], capture_output=True, text=True) 
+#     print(result.stdout)
+
+# except FileNotFoundError:
+#     print("ERROR: GCC not found. Check MSYS_PATH configuration.")
+
+subprocess.run("make clean", check=True) # PULIZIA
 
 tracker = EmissionsTracker()
 tracker.start()
+start = time.time()
 
 try:
-    subprocess.run("mingw32-make", check=True)
-
-    print("Esecuzione del programma C++...")
-    subprocess.run(["./main.exe"], check=True)
+    subprocess.run("make", check=True) # COMPILAZIONE
+    subprocess.run(["./main.exe"], check=True) # ESECUZIONE   
 
 finally:
-    tracker.stop()
-    # Carica il file
-    df = pd.read_csv("emissions.csv")
+    end = time.time()
+    print(f"TIME: {end - start} seconds")
+    print("-"*40)
 
-    # Prendi l'ultimo valore della colonna energy_consumed
-    ultimo_kwh = df["energy_consumed"].iloc[-1]
+    tracker.stop()
+
+    df = pd.read_csv("emissions.csv")# Carica il file    
+    ultimo_kwh = df["energy_consumed"].iloc[-1]# Prendi l'ultimo valore della colonna energy_consumed
 
     print(f"energia consumata: {ultimo_kwh} kWh")
