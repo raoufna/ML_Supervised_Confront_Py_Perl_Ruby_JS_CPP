@@ -4,30 +4,14 @@
     VARIABILI GLOBALI
     percorsi relativi ai dataset.
 */
-extern const std::string dataset_principiante = "../../../data/Datasets/dataset_principiante.csv";
-extern const std::string depression_heart_failure = "../../../data/Datasets/depression_heart_failure.csv";
-extern const std::string diabetes_type_1 = "../../../data/Datasets/diabetes_type_1.csv";
-extern const std::string neuroblastoma = "../../../data/Datasets/neuroblastoma.csv";
-extern const std::string sepsis_SIRS = "../../../data/Datasets/sepsis_SIRS.csv";
-extern const std::string spain_cardiac_arrest = "../../../data/Datasets/spain_cardiac_arrest.csv";
+extern const std::string relative_path = "../../../data/Datasets/";
+extern const std::string depression_heart_failure = "depression_heart_failure.csv";
+extern const std::string diabetes_type_1 = "diabetes_type_1.csv";
+extern const std::string neuroblastoma = "neuroblastoma.csv";
+extern const std::string sepsis_SIRS = "sepsis_SIRS.csv";
+extern const std::string spain_cardiac_arrest = "spain_cardiac_arrest.csv";
 
-extern const int n_dataset = 5;
 extern const int mcc_precision = 15; // precisione per la stampa dei risultati
-
-extern const std::vector<std::string> dataset_paths = {
-    depression_heart_failure,
-    diabetes_type_1,
-    neuroblastoma,
-    sepsis_SIRS,
-    spain_cardiac_arrest
-};
-extern const std::vector<std::string> dataset_names = {
-    "depression_heart_failure",
-    "diabetes_type_1",
-    "neuroblastoma",
-    "sepsis_SIRS",
-    "spain_cardiac_arrest"
-};
 
 /**
  * Calcola il Matthews Correlation Coefficient (MCC).

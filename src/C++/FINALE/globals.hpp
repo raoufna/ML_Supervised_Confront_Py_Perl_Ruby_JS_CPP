@@ -23,17 +23,13 @@ public:
 arma::mat LoadData(const std::string& filename);
 arma::rowvec LeaveOneOutCV(const arma::mat& data, const arma::rowvec& Y_values);
 
-extern const std::string dataset_principiante;
+extern const std::string relative_path;
 extern const std::string depression_heart_failure;
 extern const std::string diabetes_type_1;
 extern const std::string neuroblastoma;
 extern const std::string sepsis_SIRS;
 extern const std::string spain_cardiac_arrest;
 
-extern const int n_dataset; // numero di dataset
 extern const int mcc_precision;
-
-extern const std::vector<std::string> dataset_paths;
-extern const std::vector<std::string> dataset_names;
 
 #endif

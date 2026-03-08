@@ -1,6 +1,5 @@
 #include "globals.hpp"
 
-
 int main() {
     std::string relative_path = "../../../data/Datasets/";
     std::string dataset_name = spain_cardiac_arrest;
@@ -14,9 +13,9 @@ int main() {
     
     
     //SINTASSI DI STAMPA
-    std::cout << "-" * 40 << std::endl;
+    std::cout << std::string(40, '-') << std::endl;
     std::cout << "Dataset: " << dataset_name << std::endl;
-    std::cout << "\nMCC: " << std::fixed << std::setprecision(mcc_precision) << finalMCC << std::endl;
+    std::cout << "MCC: " << std::fixed << std::setprecision(mcc_precision) << finalMCC << std::endl;
     //TIME IS PRINTED OUTSIDE
     return 0;
 }
