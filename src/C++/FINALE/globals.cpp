@@ -2,14 +2,15 @@
 
 /** 
     VARIABILI GLOBALI
-    percorsi relativi ai dataset.
+    percorso relativo alla cartella in cui si trovano i dataset
+    e nomi dei dataset utilizzati SENZA ".csv".
 */
-extern const std::string relative_path = "../../../data/Datasets/";
-extern const std::string depression_heart_failure = "depression_heart_failure.csv";
-extern const std::string diabetes_type_1 = "diabetes_type_1.csv";
-extern const std::string neuroblastoma = "neuroblastoma.csv";
-extern const std::string sepsis_SIRS = "sepsis_SIRS.csv";
-extern const std::string spain_cardiac_arrest = "spain_cardiac_arrest.csv";
+extern const std::string relative_path = "../../../data/Datasets/"; // se cambia directory agire qui
+extern const std::string depression_heart_failure = "depression_heart_failure";
+extern const std::string diabetes_type_1 = "diabetes_type_1";
+extern const std::string neuroblastoma = "neuroblastoma";
+extern const std::string sepsis_SIRS = "sepsis_SIRS";
+extern const std::string spain_cardiac_arrest = "spain_cardiac_arrest";
 
 extern const int mcc_precision = 15; // precisione per la stampa dei risultati
 
@@ -59,10 +60,10 @@ arma::mat LoadData(const std::string& filename) {
     std::vector<std::vector<double>> temp_data;
     size_t max_cols = 0;
 
-    // 1. Salta l'header
+    // Salta l'header
     std::getline(file, header);
 
-    // 2. Parsing riga per riga
+    // Parsing riga per riga
     while (std::getline(file, line)) {
         if (!line.empty() && line.back() == '\r') line.pop_back();
         if (line.empty()) continue;
@@ -93,7 +94,7 @@ arma::mat LoadData(const std::string& filename) {
         temp_data.push_back(row);
     }
 
-    // 3. ALTERNATIVA A fill::nan: Inizializzazione manuale durante la copia
+    // Inizializzazione manuale durante la copia
     arma::uword n_rows = temp_data.size();
     arma::uword n_cols = (arma::uword)max_cols;
     arma::mat matrix(n_rows, n_cols); // Matrice con memoria "sporca"
@@ -111,7 +112,7 @@ arma::mat LoadData(const std::string& filename) {
         }
     }
 
-    // 4. Gestione dei NaN
+    // Gestione dei NaN
     for (arma::uword j = 0; j < n_cols; ++j) {
         // Estraiamo la colonna in un vec per evitare errori di compilazione sulle subview
         arma::vec col_ptr = matrix.col(j); 
@@ -144,8 +145,6 @@ arma::mat LoadData(const std::string& filename) {
     return matrix.t();
 }
 
-
-
 /**
  * Esegue la Leave-One-Out Cross-Validation.
  * @param data Matrice dei dati (features).
@@ -174,4 +173,22 @@ arma::rowvec LeaveOneOutCV(const arma::mat& data, const arma::rowvec& Y_values) 
     }
 
     return y_pred;
+}
+
+/**
+ * Stampa a console dei risultati.
+ * @param dataset_name il nome del dataset.
+ * @param MCC il valore del coeff. di corr. di Matthews.
+ * 
+ * Assieme allo script py, che calcola il tempo, stamperà a console:
+ * ----------------------
+ * DATASET: DATASET
+ * MCC: MCC
+ * TIME: time(seconds)
+ * ----------------------
+ */
+void print_results(std::string dataset_name, float MCC){
+    std::cout << std::string(40, '-') << std::endl;
+    std::cout << "Dataset: " << dataset_name << std::endl;
+    std::cout << "MCC: " << std::fixed << std::setprecision(mcc_precision) << MCC << std::endl;
 }
