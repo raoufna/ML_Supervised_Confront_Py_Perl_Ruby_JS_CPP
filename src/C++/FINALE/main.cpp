@@ -1,8 +1,7 @@
 #include "globals.hpp"
 
-int main() {
-    std::string relative_path = "../../../data/Datasets/";
-    std::string dataset_name = spain_cardiac_arrest;
+int main(int argc, char* argv[]) {
+    std::string dataset_name = (argc > 1)? argv[1] : neuroblastoma;    
     arma::mat data = LoadData(relative_path + dataset_name + ".csv"); //carica il dataset nella matrice data
 
     arma::rowvec Y_values = data.row(data.n_rows-1);  // salva il vettore soluzione(y)

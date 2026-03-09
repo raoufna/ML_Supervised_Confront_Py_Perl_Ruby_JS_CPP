@@ -48,8 +48,9 @@ tracker.start()
 start = time.time()
 
 try:
+    dataset_name = sys.argv[1] if len(sys.argv) > 1 else "neuroblastoma" # CHANGE DATASET HERE
     subprocess.run("make", check=True) # COMPILAZIONE
-    subprocess.run(["./main.exe"], check=True) # ESECUZIONE   
+    subprocess.run(["./main.exe", dataset_name], check=True) # ESECUZIONE   
 
 finally:
     end = time.time()
@@ -61,5 +62,5 @@ finally:
     df = pd.read_csv("emissions.csv")# Carica il file    
     ultimo_kwh = df["energy_consumed"].iloc[-1]# Prendi l'ultimo valore della colonna energy_consumed
 
-    print(f"energia consumata: {ultimo_kwh} kWh")
+    print(f"ENERGY CONSUMED: {ultimo_kwh} kWh")
     # subprocess.run("make clean", check=True) # PULIZIA FINALE
