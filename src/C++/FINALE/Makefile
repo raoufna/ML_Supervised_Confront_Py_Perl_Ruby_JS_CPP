@@ -1,5 +1,5 @@
-# This is a simple Makefile used to build the example source code.
-# This example might requires some modifications in order to work correctly on
+# This is a simple Makefile used to build this source code.
+# It might requires some modifications in order to work correctly on
 # your system.
 # If you're not using the Armadillo wrapper, replace `armadillo` with linker commands
 # for the BLAS and LAPACK libraries that you are using.
@@ -28,7 +28,7 @@ OBJS := $(SRC:.cpp=.o)
 LIBS := $(addprefix -l,$(LIBS_NAME))
 CLEAN_LIST := $(TARGET) $(OBJS)
 
-# default rule
+# Default rule
 default: all
 
 $(TARGET): $(OBJS)

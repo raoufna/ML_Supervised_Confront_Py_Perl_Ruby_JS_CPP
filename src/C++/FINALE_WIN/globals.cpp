@@ -5,14 +5,14 @@
     percorso relativo alla cartella in cui si trovano i dataset
     e nomi dei dataset utilizzati SENZA ".csv".
 */
-extern const std::string relative_path = "../../../data/Datasets/"; // se cambia directory agire qui
+extern const std::string relative_path = "../../../data/Datasets/"; // Se cambia directory agire qui
 extern const std::string depression_heart_failure = "depression_heart_failure";
 extern const std::string diabetes_type_1 = "diabetes_type_1";
 extern const std::string neuroblastoma = "neuroblastoma";
 extern const std::string sepsis_SIRS = "sepsis_SIRS";
 extern const std::string spain_cardiac_arrest = "spain_cardiac_arrest";
 
-extern const int mcc_precision = 15; // precisione per la stampa dei risultati
+extern const int mcc_precision = 15; // Precisione per la stampa dei risultati
 
 /**
  * Calcola il Matthews Correlation Coefficient (MCC).
@@ -25,8 +25,8 @@ double MCCEvaluator::Calculate(const arma::rowvec& predictions, const arma::rowv
     long long TP = 0, TN = 0, FP = 0, FN = 0;
 
     for (size_t i = 0; i < predictions.n_elem; ++i) {
-        // Logica di soglia
-        int predictedClass = (predictions[i] > threshold) ? 1 : 0;
+        
+        int predictedClass = (predictions[i] > threshold) ? 1 : 0; // Soglia
         int trueClass = (int)trueLabels[i];
 
         // Matrice di confusione

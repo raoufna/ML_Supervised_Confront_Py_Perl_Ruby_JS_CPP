@@ -25,8 +25,8 @@ double MCCEvaluator::Calculate(const arma::rowvec& predictions, const arma::rowv
     long long TP = 0, TN = 0, FP = 0, FN = 0;
 
     for (size_t i = 0; i < predictions.n_elem; ++i) {
-        // Logica di soglia
-        int predictedClass = (predictions[i] > threshold) ? 1 : 0;
+        
+        int predictedClass = (predictions[i] > threshold) ? 1 : 0; // Soglia
         int trueClass = (int)trueLabels[i];
 
         // Matrice di confusione
