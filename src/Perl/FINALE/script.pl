@@ -4,9 +4,11 @@ my $time = time;
 
 #CHECK AND INSTALL REQUIRED LIBRARIES
 print "-" x 40 . "\n";
-print "Checking required libraries...\n";
+print "Checking required libraries...\n\n";
 
+# List of libraries to check/install
 my @libraries = ('Text::CSV','Statistics::Regression');
+
 foreach my $lib (@libraries) {
     eval "use $lib";
     if ($@) {
@@ -18,10 +20,10 @@ foreach my $lib (@libraries) {
     }
 }
 
-print "All required libraries are available.\n";
-print "Starting the program...\n";
-#PROGRAM STARTS HERE
+print "All required libraries are available.\n\n";
+print "Starting the program...\n\n";
 
+#PROGRAM STARTS HERE
 use strict;
 use warnings;
 use List::Util qw(sum);
@@ -29,29 +31,29 @@ use Text::CSV;
 use Statistics::Regression;
 
 #CONFIGURAZIONE
-my $dataset = $ARGV[0] || 'neuroblastoma'; #Dataset input, default 'neuroblastoma'
-my $dataset_path = '../../../data/Datasets/' . $dataset . '.csv'; #Path del dataset
-my $thresold = 0.5; #Soglia
-my $predictions = []; #Array delle predizioni
-my $real_values = []; #Array dei valori reali
+my $dataset = $ARGV[0] || 'neuroblastoma'; # Dataset input, default 'neuroblastoma'
+my $relative_path = '../../../data/Datasets/';
+my $dataset_path = $relative_path . $dataset . '.csv'; # Path del dataset
+my $thresold = 0.5; # Soglia
+my $predictions = []; # Array delle predizioni
+my $real_values = []; # Array dei valori reali
 
 #LETTURA DEL DATASET
 my $csv = Text::CSV->new({ binary => 1, auto_diag => 1 });
-open my $fh, "<", $dataset_path or die "Errore: $!"; #Apre il file in lettura o lancia un errore
+open my $fh, "<", $dataset_path or die "Errore: $!"; # Apre il file in lettura o lancia un errore
 
-my $header = $csv->getline($fh); #colonna target
+my $header = $csv->getline($fh); # colonna target
 my @data; 
 while (my $row = $csv->getline($fh)) {
     push @data, $row if scalar(@$row) > 1;
 }
 close $fh;
 
-#RIEMPIMENTO DEI VALORI NaN
+# Riempimento dei valori NaN
 fillNa_with_mean_col(\@data);
+
 #LEAVE-ONE-OUT CROSS-VALIDATION (LOOCV)
-
 my $num_features = scalar(@{$data[0]}) - 1; # Tutte le colonne tranne l'ultima (target)
-
 for my $i (0 .. $#data) {
     my $model = Statistics::Regression->new("Modello_$i", ["const", map { "X$_" } (1..$num_features)]); # crea un nuovo modello di regressione per ogni iterazione, con una costante e i nomi delle feature
     
@@ -61,8 +63,6 @@ for my $i (0 .. $#data) {
         my @train_row = @{$data[$j]}; # Copia la riga j-esima
         my $y_train = pop @train_row;       # Estrae e rimuove l'ultimo valore (target)
         my @x_train = (1, @train_row);      # Prepara le X aggiungendo '1' per la costante
-        #@x_train è un array che contiene i valori delle feature per la riga j, con '1' come primo elemento per rappresentare la costante (intercetta) del modello di regressione. Questo è necessario perché il modello di regressione include un termine costante che non dipende da nessuna feature specifica.    
-
         $model->include($y_train, \@x_train); # "Insegna" il punto al modello, \@x_train è un riferimento all'array @x_train
     }
     #test_row estrae l'array della riga di test contenuta nel reference $data[$i]
@@ -85,19 +85,19 @@ for my $i (0 .. $#data) {
 }
 
 #CALCOLO MCC
-my $mcc = mccEvaluator($predictions, $real_values); # Calcola il MCC usando le previsioni e i valori reali
-my $finalTime = time - $time; #fine tempo
+my $mcc = mccEvaluator($predictions, $real_values);
+my $finalTime = time - $time; # fine tempo
 
 #RISULTATI
-FINAL_print($dataset, $mcc, $finalTime); #Stampa finale
+FINAL_print($dataset, $mcc, $finalTime); #STAMPA
 
 #FINE PROGRAMMA
 
 #METODI
 sub FINAL_print{
-    print "DATASET: $_[0] \n";
+    print "Dataset: $_[0] \n";
     print "MCC: $_[1]\n";
-    printf "TIME: %f seconds\n", $_[2]; #tempo in secondi ARROTONDATO a 6 cifre decimali
+    printf "Time: %f seconds\n", $_[2]; # tempo in secondi ARROTONDATO a 6 cifre decimali
     print "-" x 40 . "\n";
 }
 
@@ -111,7 +111,6 @@ sub fillNa_with_mean_col{
     my $num_colonne = scalar @{$matrice[0]};
     my $indice_target = $num_colonne - 1;
 
-    # --- 1. Calcolo Statistiche per ogni colonna ---
     my @valori_sostitutivi;
 
     for my $col (0 .. $indice_target) {
@@ -142,7 +141,7 @@ sub fillNa_with_mean_col{
         }
     }
 
-    # --- 2. Sostituzione dei valori NIL ---
+    # Sostituzione dei valori NIL
     for my $r (0 .. $num_righe - 1) {
         for my $c (0 .. $num_colonne - 1) {
             my $val = $matrice[$r][$c];
@@ -173,29 +172,6 @@ sub mccEvaluator{
     }
     my $numerator = ($TP * $TN) - ($FP * $FN);
     my $denominator = sqrt(($TP + $FP) * ($TP + $FN) * ($TN + $FP) * ($TN + $FN));
-    my $mcc = $denominator == 0 ? 0 : $numerator / $denominator; # Calcola il MCC
+    my $mcc = $denominator == 0 ? 0 : $numerator / $denominator;
     return $mcc;
-}
-
-sub stampa_matrice {
-    my ($riferimento_matrice) = @_;
-    
-    # Verifichiamo che la matrice non sia vuota
-    if (!defined $riferimento_matrice || scalar @$riferimento_matrice == 0) {
-        print "La matrice è vuota.\n";
-        return;
-    }
-
-    print "\n--- Visualizzazione Matrice ---\n";
-
-    # Iteriamo su ogni riga della matrice
-    for my $i (0 .. $#$riferimento_matrice) {
-        my $riga = $riferimento_matrice->[$i];
-        
-        # Usiamo join per unire gli elementi della riga con un tabulatore (\t)
-        # Questo mantiene le colonne allineate se i numeri hanno lunghezze simili
-        print join("\t", @$riga) . "\n";
-    }
-    
-    print "-------------------------------\n\n";
 }
