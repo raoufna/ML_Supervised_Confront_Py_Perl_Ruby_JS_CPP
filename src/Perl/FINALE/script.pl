@@ -1,6 +1,6 @@
 #START
 use Time::HiRes qw(time);
-my $time = time;
+my $time_start = time;
 
 #CHECK AND INSTALL REQUIRED LIBRARIES
 print "-" x 40 . "\n";
@@ -34,7 +34,7 @@ use Statistics::Regression;
 my $dataset = $ARGV[0] || 'neuroblastoma'; # Dataset input, default 'neuroblastoma'
 my $relative_path = '../../../data/Datasets/';
 my $dataset_path = $relative_path . $dataset . '.csv'; # Path del dataset
-my $thresold = 0.5; # Soglia
+my $threshold = 0.5; # Soglia
 my $predictions = []; # Array delle predizioni
 my $real_values = []; # Array dei valori reali
 
@@ -65,7 +65,7 @@ for my $i (0 .. $#data) {
         my @x_train = (1, @train_row);      # Prepara le X aggiungendo '1' per la costante
         $model->include($y_train, \@x_train); # "Insegna" il punto al modello, \@x_train è un riferimento all'array @x_train
     }
-    #test_row estrae l'array della riga di test contenuta nel reference $data[$i]
+    # test_row estrae l'array della riga di test contenuta nel reference $data[$i]
     my @test_row = @{$data[$i]};
     my $y_value = pop @test_row; # Il valore reale che dovremmo ottenere
     
@@ -78,7 +78,7 @@ for my $i (0 .. $#data) {
         $y_pred += $coeffs_list[$k] * $test_row[$k]; # Calcola la predizione usando i coefficienti e le feature del test
     }
     #SALVA PREDIZIONE E VALORE REALE
-    $y_pred = $y_pred > $thresold ? 1 : 0; # Applica la soglia 
+    $y_pred = $y_pred > $threshold ? 1 : 0; # Applica la soglia 
 
     push @$predictions, $y_pred;
     push @$real_values, $y_value;
@@ -86,10 +86,10 @@ for my $i (0 .. $#data) {
 
 #CALCOLO MCC
 my $mcc = mccEvaluator($predictions, $real_values);
-my $finalTime = time - $time; # fine tempo
+my $final_time = time - $time_start; # fine tempo
 
 #RISULTATI
-FINAL_print($dataset, $mcc, $finalTime); #STAMPA
+FINAL_print($dataset, $mcc, $final_time); #STAMPA
 
 #FINE PROGRAMMA
 
@@ -97,7 +97,7 @@ FINAL_print($dataset, $mcc, $finalTime); #STAMPA
 sub FINAL_print{
     print "Dataset: $_[0] \n";
     print "MCC: $_[1]\n";
-    printf "Time: %f seconds\n", $_[2]; # tempo in secondi ARROTONDATO a 6 cifre decimali
+    printf "Time: %f seconds\n", $_[2]; # Tempo in secondi ARROTONDATO a 6 cifre decimali
     print "-" x 40 . "\n";
 }
 
@@ -137,7 +137,7 @@ sub fillNa_with_mean_col{
                 $valori_sostitutivi[$col] = sum(@valori_validi) / scalar(@valori_validi);
             }
         } else {
-            $valori_sostitutivi[$col] = 0; # Fallback se la colonna è tutta nil
+            $valori_sostitutivi[$col] = 0; # SET 0 se la colonna è tutta nil
         }
     }
 

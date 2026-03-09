@@ -1,5 +1,5 @@
 #START
-time = Time.now
+time_start = Time.now
 
 #CHECK E INSTALL REQUIRED LIBRARIES
 puts "-" * 40 + "\n"
@@ -89,11 +89,11 @@ end
 
 #CONFIGURAZIONE
 datase_name = ARGV[0] || "neuroblastoma"
-relative_path = "../../../data/Datasets/" # se il percorso ai dataset cambia, agire qui
+relative_path = "../../../data/Datasets/" # Se il percorso ai dataset cambia, agire qui
 dataset_path = relative_path + datase_name + ".csv"
-thresold = 0.5
+threshold = 0.5
 last = -1 # Indice dell'ultimo campo
-x_data = [] # Array di array
+x_data = []
 y_values = []
 
 
@@ -126,7 +126,7 @@ for i in 0...x_data.length
   prediction = linear_regression.predict(test_x)
 
   # CLASSIFICAZIONE BINARIA
-  prediction = prediction > thresold ? 1 : 0 # Applica soglia
+  prediction = prediction > threshold ? 1 : 0 # Applica soglia
   y_pred[i] = prediction # Aggiorna il valore reale con la classificazione binaria
 end
 
@@ -134,7 +134,7 @@ end
 mcc = mccEvaluator(y_values, y_pred)
 
 #RISULTATI
-end_time = Time.now
-final_time = end_time - time
+time_end = Time.now
+final_time = time_end - time_start
 print_results(datase_name, mcc, final_time)
 #FINE PROGRAMMA

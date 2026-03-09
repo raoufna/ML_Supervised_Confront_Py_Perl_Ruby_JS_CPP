@@ -1,6 +1,6 @@
 #START
 import time
-start = time.time() # timer start 
+time_start = time.time() # timer start 
 
 import subprocess
 import sys
@@ -43,15 +43,15 @@ from sklearn.metrics import matthews_corrcoef
 
 #METODI
 def leave_one_out(dataset):
-    last_col = dataset.columns[len(dataset.columns)-1] # prendo il nome dell'ultima colonna del csv
+    last_col = dataset.columns[len(dataset.columns)-1] # Prende il nome dell'ultima colonna del csv
     X = dataset.drop(last_col, axis=1).values
     y = dataset[last_col].values
 
-    threshold = 0.5 # soglia per classificare in 0 o 1
+    threshold = 0.5 # Soglia per classificare in 0 o 1
 
     loo = LeaveOneOut()
-    prediction_values = [] # lista per i valori predizione
-    real_values = [] # lista per i valori reali
+    prediction_values = [] # Lista per i valori predizione
+    real_values = [] # Lista per i valori reali
 
     for train_index, test_index in loo.split(X):
 
@@ -62,7 +62,7 @@ def leave_one_out(dataset):
         model.fit(X_train, y_train)
 
         y_pred = model.predict(X_test)
-        y_pred = (y_pred > threshold).astype(int) # assegna il risultato a 0 o 1 in base alla soglia
+        y_pred = (y_pred > threshold).astype(int) # Assegna il risultato a 0 o 1 in base alla soglia
 
         prediction_values.append(y_pred[0])  
         real_values.append(y_test[0])
@@ -74,11 +74,11 @@ def leave_one_out(dataset):
 def fillNa_with_mean_col(dataset):
     for i in range(len(dataset)):
         for j in range(len(dataset.columns)):
-            if j == len(dataset.columns)-1 and pd.isna(dataset.iloc[i, j]): # se è l'ultima colonna (colonna target) e il valore è NaN
-                dataset.iloc[i, j] = dataset.iloc[:, j].median() # assegna il valore mediano della colonna target
+            if j == len(dataset.columns)-1 and pd.isna(dataset.iloc[i, j]): # Se è l'ultima colonna (colonna target) e il valore è NaN
+                dataset.iloc[i, j] = dataset.iloc[:, j].median() # Assegna il valore mediano della colonna target
 
-            if pd.isna(dataset.iloc[i, j]): # se il valore è NaN
-                dataset.iloc[i, j] = dataset.iloc[:, j].mean() # assegna il valore medio della colonna
+            if pd.isna(dataset.iloc[i, j]): # Se il valore è NaN
+                dataset.iloc[i, j] = dataset.iloc[:, j].mean() # Assegna il valore medio della colonna
 
 def print_results(dataset, mcc, final_time):
     print(f"Dataset: {dataset}")
@@ -89,22 +89,22 @@ def print_results(dataset, mcc, final_time):
 if __name__ == "__main__":
     
     #CONFIGURAZIONE
-    relative_path = "../../../data/Datasets/" # se il percorso ai dataset cambia, agire qui
-    dataset_name = sys.argv[1] if len(sys.argv) > 1 else "neuroblastoma" # prende a console il nome del dataset
+    relative_path = "../../../data/Datasets/" # Se il percorso ai dataset cambia, agire qui
+    dataset_name = sys.argv[1] if len(sys.argv) > 1 else "neuroblastoma" # Prende a console il nome del dataset
     dataset_path = relative_path + dataset_name + ".csv"
-    mcc_precision = 10 # numero di cifre decimali per il MCC
-    time_precision = 5  # numero di cifre decimali per il tempo di esecuzione
+    mcc_precision = 10 # Numero di cifre decimali per il MCC
+    time_precision = 5  # Numero di cifre decimali per il tempo di esecuzione
 
     #LETTURA DEL DATASET
     data = pd.read_csv(dataset_path)
-    fillNa_with_mean_col(data) # per sistemare valori NaN con la media della colonna
+    fillNa_with_mean_col(data) # Per sistemare valori NaN con la media della colonna
     
     #LEAVE-ONE-OUT CROSS-VALIDATION (LOOCV) e CALCOLO MCC
-    mcc = round(leave_one_out(data), mcc_precision) # calcola il MCC e arrotonda a mcc_precision cifre decimali
+    mcc = round(leave_one_out(data), mcc_precision) # Calcola il MCC e arrotonda a mcc_precision cifre decimali
 
     #RISULTATI    
-    end = time.time()
-    final_time = round(end - start, time_precision) # calcola il tempo finale e arrotonda a time_precision cifre decimali
+    time_end = time.time()
+    final_time = round(time_end - time_start, time_precision) # Calcola il tempo finale e arrotonda a time_precision cifre decimali
     
     print_results(dataset_name, mcc, final_time) #STAMPA
 #FINE PROGRAMMA

@@ -1,5 +1,5 @@
 //START
-const startTime = performance.now(); // Inizio timer
+const time_start = performance.now(); // Inizio timer
 
 //CHECK E INSTALL REQUIRED LIBRARIES
 print_lines(40, "-");
@@ -29,11 +29,11 @@ const MultivariateLinearRegression = require('ml-regression-multivariate-linear'
 const { argv } = require('process');
 dataset_name = 'neuroblastoma'; // Default
 
-// CONFIGURAZIONE
-if (argv.length > 2) {  dataset_name = argv[2];} //
+//CONFIGURAZIONE
+if (argv.length > 2) { dataset_name = argv[2]; } // Assegna il dataset in input, se esiste
 const relative_path = '../../../data/Datasets/';
 const CSV_FILE_PATH = `${relative_path}${dataset_name}.csv`;
-const thresold = 0.5; // Soglia per convertire la predizione in 0 o 1
+const threshold = 0.5; // Soglia per convertire la predizione in 0 o 1
 const mcc_precision = 10; // Precisione dei risultati
 const time_precision = 5; // Precisione del tempo in secondi
 const X = []; // Matrice delle features
@@ -80,7 +80,7 @@ fs.createReadStream(CSV_FILE_PATH)
     }
 
     // Sostituzione target(Y) con la mediana
-    let validY = []; //Array per i valori di y non null
+    let validY = []; // Array per i valori di y non null
     for (let i = 0; i < y.length; i++) {
       if (y[i][0] !== null) {
         validY.push(y[i][0]);
@@ -104,8 +104,8 @@ fs.createReadStream(CSV_FILE_PATH)
 
     //LEAVE-ONE-OUT CROSS-VALIDATION (LOOCV) e CALCOLO MCC
     const MCC = LOOCV_loop(X, y);
-    const endTime = performance.now();
-    const final_time = (endTime - startTime)/ 1000;  // Conversione in secondi
+    const time_end = performance.now();
+    const final_time = (time_end - time_start)/ 1000;  // Conversione in secondi
     print_results(dataset_name, MCC, final_time) //STAMPA
     //FINE PROGRAMMA
   });
@@ -123,7 +123,7 @@ function isPackageInstalled(lib) {
 
 function installPackage(lib) {
   try {
-    execSync(`npm install ${lib}`, { stdio: 'inherit' }); // INSTALLA PACCHETTO, stdio: 'inherit' mostra l'output del processo in tempo reale
+    execSync(`npm install ${lib}`, { stdio: 'inherit' }); //INSTALLA PACCHETTO, stdio: 'inherit' mostra l'output del processo in tempo reale
     console.log(`${lib} installed successfully.`);
   } catch (err) {
     console.error(`Failed to install ${lib}:`, err);
@@ -147,9 +147,9 @@ function LOOCV_loop(X, y) {
 
     //PREDIZIONE
     const predictionVector = model.predict([X_test]); 
-    const predictedValue = predictionVector[0][0]; // model restituisce [[val]]
+    const predictedValue = predictionVector[0][0]; // 'model' restituisce [[val]]
 
-    const predictedClass = predictedValue > thresold ? 1 : 0; // soglia
+    const predictedClass = predictedValue > threshold ? 1 : 0; // Soglia
 
     pred_values.push(predictedClass);
   }
