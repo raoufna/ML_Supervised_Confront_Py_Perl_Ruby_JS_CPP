@@ -6,7 +6,7 @@ import subprocess
 import sys
 
 #CHECK E INSTALL REQUIRED LIBRARIES
-print("-" * 40 + "\n")
+print("-" * 40)
 print("Checking required libraries...\n")
 
 bash_command = sys.executable +" -m pip install --upgrade pip"
@@ -83,14 +83,15 @@ def fillNa_with_mean_col(dataset):
 def print_results(dataset, mcc, final_time):
     print(f"Dataset: {dataset}")
     print(f"MCC: {mcc}")
-    print(f"Time: {final_time} seconds\n")
-    print("-" * 40 + "\n")
+    print(f"Time: {final_time} seconds")
+    print("-" * 40)
 
 if __name__ == "__main__":
     
     #CONFIGURAZIONE
-    dataset_name = sys.argv[1] if len(sys.argv) > 1 else "neuroblastoma"
-    dataset_path = f"../../../data/Datasets/{dataset_name}.csv"
+    relative_path = "../../../data/Datasets/" # se il percorso ai dataset cambia, agire qui
+    dataset_name = sys.argv[1] if len(sys.argv) > 1 else "neuroblastoma" # prende a console il nome del dataset
+    dataset_path = relative_path + dataset_name + ".csv"
     mcc_precision = 10 # numero di cifre decimali per il MCC
     time_precision = 5  # numero di cifre decimali per il tempo di esecuzione
 
@@ -105,8 +106,5 @@ if __name__ == "__main__":
     end = time.time()
     final_time = round(end - start, time_precision) # calcola il tempo finale e arrotonda a time_precision cifre decimali
     
-    print_results(dataset_name, mcc, final_time)
+    print_results(dataset_name, mcc, final_time) #STAMPA
 #FINE PROGRAMMA
-
-
-
