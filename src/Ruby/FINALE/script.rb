@@ -3,9 +3,11 @@ time = Time.now
 
 #CHECK E INSTALL REQUIRED LIBRARIES
 puts "-" * 40 + "\n"
-puts "Checking required libraries...\n"
+puts "Checking required libraries...\n\n"
 
+# List of libraries to check/install
 libraries = ['csv', 'ruby_linear_regression']
+
 def installPackage(lib)
   begin
     require lib
@@ -20,8 +22,8 @@ end
 
 libraries.each { |lib| installPackage(lib) }
 
-puts "All required libraries are available.\n"
-puts "Starting the program...\n"
+puts "All required libraries are available.\n\n"
+puts "Starting the program...\n\n"
 
 #PROGRAM STARTS HERE
 
@@ -45,15 +47,14 @@ def mccEvaluator(real_values, predictions)
   numerator / denominator
 end
 
-def print_results(dataset, mcc, final_time)
-  puts "Dataset: #{dataset}"
+def print_results(datase_name, mcc, final_time)
+  puts "Dataset: #{datase_name}"
   puts "MCC: #{mcc}"
   puts "Time: #{final_time} seconds"
   puts "-" * 40
 end
 
 def fillNa_with_mean_col(x_data, y_values)
-  # --- 1. Imputazione Mediana per il Target (y_values) ---
   # Estraiamo i valori non nulli e li ordiniamo
   valid_y = y_values.compact.sort
   
@@ -61,14 +62,14 @@ def fillNa_with_mean_col(x_data, y_values)
     target_median = 0.0
   else
     mid = valid_y.size / 2
-    # Se pari: media dei due centrali, se dispari: il centrale
+    # Calcolo MEDIANA per il Target
     target_median = valid_y.size.even? ? (valid_y[mid-1] + valid_y[mid]) / 2.0 : valid_y[mid]
   end
 
-  # Sostituiamo i nil in y_values
+  # Sostituzione dei valori nil in y_values
   cleaned_y = y_values.map { |v| v.nil? ? target_median : v }
 
-  # --- 2. Imputazione Media per le Feature (x_data) ---
+  # Gestione features(X) nil con la media
   num_columns = x_data.first.size
   cleaned_x = x_data.map(&:dup) # Creiamo una copia per non modificare l'originale
 
@@ -79,7 +80,7 @@ def fillNa_with_mean_col(x_data, y_values)
     # Calcolo media della colonna
     mean = column_values.empty? ? 0.0 : (column_values.sum / column_values.size.to_f)
 
-    # Applichiamo la media ai nil della colonna specifica
+    # Sostituzione dei valori nil con la media
     cleaned_x.each { |row| row[col_idx] = mean if row[col_idx].nil? }
   end
 
@@ -87,31 +88,27 @@ def fillNa_with_mean_col(x_data, y_values)
 end
 
 #CONFIGURAZIONE
-dataset = ARGV[0] || "neuroblastoma"
-dataset_path = "../../../data/Datasets/#{dataset}.csv"
+datase_name = ARGV[0] || "neuroblastoma"
+relative_path = "../../../data/Datasets/" # se il percorso ai dataset cambia, agire qui
+dataset_path = relative_path + datase_name + ".csv"
 thresold = 0.5
-last = -1 #Indice dell'ultimo campo
-x_data = [] #Array di array
+last = -1 # Indice dell'ultimo campo
+x_data = [] # Array di array
 y_values = []
 
 
 #LETTURA DEL DATASET
 CSV.foreach(dataset_path, headers: true) do |row|
-  # Features: gestiamo i nil per le colonne centrali
-  raw_features = row.fields[0...-1].map { |v| v.nil? || v.strip.empty? ? nil : v.to_f }
+  raw_col = row.fields.map { |v| v.nil? || v.strip.empty? ? nil : v.to_f } # Assegna nil
   
-  # Target: gestiamo il nil per l'ultima colonna
-  last_val = row.fields.last
-  raw_target = (last_val.nil? || last_val.strip.empty?) ? nil : last_val.to_f
-  
-  x_data << raw_features
-  y_values << raw_target
+  x_data << raw_col[0...-1] # Salva le features(X)
+  y_values << raw_col[-1] # Salva l'ultimo valore(y)
 end
 
-#GESTIONE DEI NIL
+# Riempimento dei valori NaN
 x_data, y_values = fillNa_with_mean_col(x_data, y_values)
 
-y_pred = Array.new(y_values.length) #Array delle predizioni
+y_pred = Array.new(y_values.length) # Array delle predizioni
 
 #LEAVE-ONE-OUT CROSS-VALIDATION (LOOCV)
 for i in 0...x_data.length
@@ -129,7 +126,7 @@ for i in 0...x_data.length
   prediction = linear_regression.predict(test_x)
 
   # CLASSIFICAZIONE BINARIA
-  prediction = prediction > thresold ? 1 : 0 #Applica soglia
+  prediction = prediction > thresold ? 1 : 0 # Applica soglia
   y_pred[i] = prediction # Aggiorna il valore reale con la classificazione binaria
 end
 
@@ -139,5 +136,5 @@ mcc = mccEvaluator(y_values, y_pred)
 #RISULTATI
 end_time = Time.now
 final_time = end_time - time
-print_results(dataset, mcc, final_time)
+print_results(datase_name, mcc, final_time)
 #FINE PROGRAMMA
