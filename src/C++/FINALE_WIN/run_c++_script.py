@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-#CHECK E INSTALL REQUIRED LIBRARIES
+#CHECK AND INSTALL REQUIRED LIBRARIES
 print("Checking required libraries...")
 
 bash_command = sys.executable +" -m pip install --upgrade pip"
@@ -36,12 +36,12 @@ import time
 import subprocess
 import os
 
-# Configurazione dei percorsi MSYS2
-msys_paths = r"C:\msys64\ucrt64\bin;C:\msys64\usr\bin" # Percorso MSYS da aggiungere al PATH
+# Configuration of MSYS2 paths
+msys_paths = r"C:\msys64\ucrt64\bin;C:\msys64\usr\bin" # MSYS path to add to PATH
 print(f"Setting MSYS2 paths: {msys_paths}")
-os.environ["PATH"] = msys_paths + os.pathsep + os.environ["PATH"] # Aggiorna MSYS in cima al PATH per questa sessione
+os.environ["PATH"] = msys_paths + os.pathsep + os.environ["PATH"] # Update MSYS at the top of PATH for this session
 
-subprocess.run("make clean", check=True) #PULIZIA
+subprocess.run("make clean", check=True) #CLEANING
 
 tracker = EmissionsTracker()
 tracker.start()
@@ -49,20 +49,20 @@ time_start = time.time()
 
 try:
     dataset_name = sys.argv[1] if len(sys.argv) > 1 else "neuroblastoma" # CHANGE DATASET HERE
-    subprocess.run("make", check=True) #COMPILAZIONE
-    subprocess.run(["./main.exe", dataset_name], check=True) #ESECUZIONE   
+    subprocess.run("make", check=True) #COMPILATION
+    subprocess.run(["./main.exe", dataset_name], check=True) #EXECUTION   
 
 finally:
     time_end = time.time()
-    time_precision = 5  # Numero di cifre decimali per il tempo di esecuzione
+    time_precision = 5  # Number of decimal digits for execution time
     final_time = round(time_end - time_start, time_precision)
     print(f"Time: {final_time} seconds")
     print("-"*40)
 
     tracker.stop()
 
-    df = pd.read_csv("emissions.csv")# Carica il file    
-    ultimo_kwh = df["energy_consumed"].iloc[-1]# Prendi l'ultimo valore della colonna energy_consumed
+    df = pd.read_csv("emissions.csv") # Load the file    
+    ultimo_kwh = df["energy_consumed"].iloc[-1] # Get the last value from energy_consumed column
 
     print(f"ENERGY CONSUMED: {ultimo_kwh} kWh")
-    # subprocess.run("make clean", check=True) #PULIZIA FINALE
+    # subprocess.run("make clean", check=True) #FINAL CLEANING

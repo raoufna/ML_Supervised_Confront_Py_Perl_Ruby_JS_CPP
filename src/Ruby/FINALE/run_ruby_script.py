@@ -1,7 +1,7 @@
 import subprocess
 import sys
 
-#CHECK E INSTALL CODECARBON
+#CHECK AND INSTALL CODECARBON
 print("Checking required libraries for CodeCarbon...")
 
 bash_command = sys.executable +" -m pip install --upgrade pip"
