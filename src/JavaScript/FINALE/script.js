@@ -1,7 +1,7 @@
 //START
-const time_start = performance.now(); // Inizio timer
+const time_start = performance.now(); // Start timer
 
-//CHECK E INSTALL REQUIRED LIBRARIES
+//CHECK AND INSTALL REQUIRED LIBRARIES
 print_lines(40, "-");
 console.log("Checking required libraries...\n");
 
@@ -23,45 +23,45 @@ console.log("All required libraries are available.\n");
 console.log("Starting the program...\n");
 
 //PROGRAM STARTS HERE
-const fs = require('fs'); // Libreria nativa
+const fs = require('fs'); // Native library
 const csv = require('csv-parser');
 const MultivariateLinearRegression = require('ml-regression-multivariate-linear');
 const { argv } = require('process');
 dataset_name = 'neuroblastoma'; // Default
 
-//CONFIGURAZIONE
-if (argv.length > 2) { dataset_name = argv[2]; } // Assegna il dataset in input, se esiste
+//CONFIGURATION
+if (argv.length > 2) { dataset_name = argv[2]; } // Assign input dataset, if exists
 const relative_path = '../../../data/Datasets/';
 const CSV_FILE_PATH = `${relative_path}${dataset_name}.csv`;
-const threshold = 0.5; // Soglia per convertire la predizione in 0 o 1
-const mcc_precision = 10; // Precisione dei risultati
-const time_precision = 5; // Precisione del tempo in secondi
-const X = []; // Matrice delle features
-const y = []; // Vettore del target
+const threshold = 0.5; // Threshold to convert prediction to 0 or 1
+const mcc_precision = 10; // Precision of results
+const time_precision = 5; // Precision of time in seconds
+const X = []; // Features matrix
+const y = []; // Target vector
 
 fs.createReadStream(CSV_FILE_PATH)
   .pipe(csv())
   .on('data', (row) => {
-    // Salva i valori di ogni riga come numeri o null
+    // Save each row values as numbers or null
     const values = Object.values(row).map(val => {      
-      const parsed = parseFloat(val);// Restituisce NaN se val è vuoto o non è un numero
+      const parsed = parseFloat(val);// Returns NaN if val is empty or not a number
       return isNaN(parsed) ? null : parsed; 
     });
     
-    const targetValue = values.pop(); // Rimuove e salva l'ultimo elemento (y)
-    const features = values;          // Contiene solo le features (X)
+    const targetValue = values.pop(); // Remove and save last element (y)
+    const features = values;          // Contains only features (X)
 
     X.push(features); 
-    y.push([targetValue]); // La libreria ml-regression vuole y come matrice colonna [[0], [1], ...]
+    y.push([targetValue]); // The ml-regression library wants y as a column matrix [[0], [1], ...]
   })
   .on('end', () => {
-    // Sostituzione features(X) con la media
+    // Replace features(X) with the mean
     const nFeatures = X[0].length;
     for (let j = 0; j < nFeatures; j++) {
       let sum = 0;
       let count = 0;
       
-      // Calcolo somma e conteggio per la colonna j
+      // Calculate sum and count for column j
       for (let i = 0; i < X.length; i++) {
         if (X[i][j] !== null) {
           sum += X[i][j];
@@ -69,9 +69,9 @@ fs.createReadStream(CSV_FILE_PATH)
         }
       }
       
-      const mean = count > 0 ? sum / count : 0; // Calcolo media (0 se colonna vuota)
+      const mean = count > 0 ? sum / count : 0; // Calculate mean (0 if column is empty)
       
-      // Sostituzione dei null con la media calcolata
+      // Replace null values with calculated mean
       for (let i = 0; i < X.length; i++) {
         if (X[i][j] === null) {
           X[i][j] = mean;
@@ -79,15 +79,15 @@ fs.createReadStream(CSV_FILE_PATH)
       }
     }
 
-    // Sostituzione target(Y) con la mediana
-    let validY = []; // Array per i valori di y non null
+    // Replace target(Y) with the median
+    let validY = []; // Array for non-null y values
     for (let i = 0; i < y.length; i++) {
       if (y[i][0] !== null) {
         validY.push(y[i][0]);
       }
     }
     
-    // Calcolo della mediana
+    // Calculate median
     validY.sort((a, b) => a - b);
     let median = 0;
     if (validY.length > 0) {
@@ -95,25 +95,25 @@ fs.createReadStream(CSV_FILE_PATH)
       median = validY.length % 2 !== 0 ? validY[mid] : (validY[mid - 1] + validY[mid]) / 2;
     }
 
-    // Sostituzione dei null con la mediana
+    // Replace null values with median
     for (let i = 0; i < y.length; i++) {
       if (y[i][0] === null) {
         y[i][0] = median;
       }
     }
 
-    //LEAVE-ONE-OUT CROSS-VALIDATION (LOOCV) e CALCOLO MCC
+    //LEAVE-ONE-OUT CROSS-VALIDATION (LOOCV) AND MCC CALCULATION
     const MCC = LOOCV_loop(X, y);
     const time_end = performance.now();
-    const final_time = (time_end - time_start)/ 1000;  // Conversione in secondi
-    print_results(dataset_name, MCC, final_time) //STAMPA
-    //FINE PROGRAMMA
+    const final_time = (time_end - time_start)/ 1000;  // Convert to seconds
+    print_results(dataset_name, MCC, final_time) //PRINT
+    //END PROGRAM
   });
 
-//METODI
+//METHODS
 function isPackageInstalled(lib) {
   try {
-    // Controlla se il pacchetto è installato localmente
+    // Check if package is installed locally
     execSync(`npm list ${lib}`, { stdio: 'ignore' });
     return true;
   } catch (err) {
@@ -123,7 +123,7 @@ function isPackageInstalled(lib) {
 
 function installPackage(lib) {
   try {
-    execSync(`npm install ${lib}`, { stdio: 'inherit' }); //INSTALLA PACCHETTO, stdio: 'inherit' mostra l'output del processo in tempo reale
+    execSync(`npm install ${lib}`, { stdio: 'inherit' }); //INSTALL PACKAGE, stdio: 'inherit' shows process output in real time
     console.log(`${lib} installed successfully.`);
   } catch (err) {
     console.error(`Failed to install ${lib}:`, err);
@@ -131,7 +131,7 @@ function installPackage(lib) {
 }
 
 function LOOCV_loop(X, y) {
-  let pred_values = []; // Vettore delle predizioni(y)
+  let pred_values = []; // Vector of predictions(y)
 
   const nSamples = X.length;
 
@@ -142,19 +142,19 @@ function LOOCV_loop(X, y) {
     const X_train = X.filter((_, index) => index !== i);
     const Y_train = y.filter((_, index) => index !== i);
 
-    //ADDESTRAMENTO
+    //TRAINING
     let model = new MultivariateLinearRegression(X_train, Y_train);
 
-    //PREDIZIONE
+    //PREDICTION
     const predictionVector = model.predict([X_test]); 
-    const predictedValue = predictionVector[0][0]; // 'model' restituisce [[val]]
+    const predictedValue = predictionVector[0][0]; // 'model' returns [[val]]
 
-    const predictedClass = predictedValue > threshold ? 1 : 0; // Soglia
+    const predictedClass = predictedValue > threshold ? 1 : 0; // Threshold
 
     pred_values.push(predictedClass);
   }
 
-  //RISULTATI
+  //RESULTS
   const mcc = MCCEvaluator(pred_values, y.map(v => v[0])).toFixed(mcc_precision);
   return mcc
 }
@@ -184,6 +184,6 @@ function print_lines(n, elem){
 function print_results(dataset_name, mcc, time){
   console.log('Dataset:', dataset_name);
   console.log('MCC:', mcc);
-  console.log('Time:', time.toFixed(time_precision), 'seconds'); // Fine timer e stampa del tempo di esecuzione
+  console.log('Time:', time.toFixed(time_precision), 'seconds'); // End timer and print execution time
   print_lines(40,"-");
 }
