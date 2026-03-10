@@ -1,9 +1,3 @@
-# This is a simple Makefile used to build this source code.
-# It might requires some modifications in order to work correctly on
-# your system.
-# If you're not using the Armadillo wrapper, replace `armadillo` with linker commands
-# for the BLAS and LAPACK libraries that you are using.
-
 TARGET := main.exe
 SRC := main.cpp globals.cpp
 LIBS_NAME := armadillo
@@ -22,8 +16,8 @@ INCLFLAGS := -I .
 # update the lines below.
 # INCLFLAGS += -I/path/to/mlpack/include/
 # INCLFLAGS += -I/path/to/ensmallen/include/
-CXXFLAGS  += $(INCLFLAGS)
 
+CXXFLAGS  += $(INCLFLAGS)
 OBJS := $(SRC:.cpp=.o)
 LIBS := $(addprefix -l,$(LIBS_NAME))
 CLEAN_LIST := $(TARGET) $(OBJS)
