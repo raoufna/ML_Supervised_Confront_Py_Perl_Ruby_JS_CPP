@@ -36,12 +36,7 @@ import time
 import subprocess
 import os
 
-# Configuration of MSYS2 paths
-msys_paths = r"C:\msys64\ucrt64\bin;C:\msys64\usr\bin" # MSYS path to add to PATH
-print(f"Setting MSYS2 paths: {msys_paths}")
-os.environ["PATH"] = msys_paths + os.pathsep + os.environ["PATH"] # Updates MSYS at the top of PATH for this session
-
-subprocess.run("make clean", check=True) #CLEANING
+subprocess.run(["make", "clean"],  check=True) #PULIZIA
 
 tracker = EmissionsTracker()
 tracker.start()
