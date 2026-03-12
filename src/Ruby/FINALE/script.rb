@@ -119,7 +119,7 @@ for i in 0...x_data.length
 
   #MODEL
   linear_regression = RubyLinearRegression.new
-  linear_regression.load_training_data(train_x, train_y)
+  linear_regression.load_training_data(train_x, train_y, false)
   linear_regression.train_normal_equation
 
   #PREDICTION
