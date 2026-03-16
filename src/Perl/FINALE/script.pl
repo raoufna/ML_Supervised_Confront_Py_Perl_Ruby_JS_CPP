@@ -12,11 +12,7 @@ my @libraries = ('Text::CSV','Statistics::Regression');
 foreach my $lib (@libraries) {
     eval "use $lib";
     if ($@) {
-        print "$lib not found. Installing...\n";
-        system("cpan -i $lib") == 0
-            or die "Error while installing $lib: $!";
-    } else {
-        print "$lib is already installed.\n";
+        die "ERRORE: Librerie mancanti.\nPer favore esegui: sudo apt install libtext-csv-perl libstatistics-regression-perl\n";
     }
 }
 
