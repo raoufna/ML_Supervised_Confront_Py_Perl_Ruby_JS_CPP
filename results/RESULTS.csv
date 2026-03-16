@@ -1,0 +1,51 @@
+dataset,number of samples,operating system,reboot first execution time (seconds),energy consumption (kWh) first,common execution time (seconds),MCC,energy consumption (kWh),energy consumption technology,programming language and version,target column
+cardiac arrest,422,Linux  WSL:UBUNTU versione 24.04.4,31.14142,0.00036764442737,29.2151,0.2783899605,0.0003548487565,CodeCarbon,C++(gcc v13.3.0),Cardiac_arrest_at_home
+depression and heart failure,425,Linux  WSL:UBUNTU versione 24.04.4,29.38941,0.00036684951074,25.9517,0.8075790405,0.0003255573549,CodeCarbon,C++(gcc v13.3.0),"""Hospitalized (1=Yes, 0=No)"""
+diabetes type one,67,Linux  WSL:UBUNTU versione 24.04.4,26.69003,0.00032107369186,22.4649,0.1316091418,0.0002708866636,CodeCarbon,C++(gcc v13.3.0),insulin_regimen_binary
+neuroblastoma,169,Linux  WSL:UBUNTU versione 24.04.4,30.17321,0.00035617762314,24.7096,0.4741771221,0.0003160832953,CodeCarbon,C++(gcc v13.3.0),outcome
+sepsis and SIRS,1257,Linux  WSL:UBUNTU versione 24.04.4,32.39186,0.00040398596819,29.6110,0.4388711154,0.0003662489514,CodeCarbon,C++(gcc v13.3.0),Mortality
+cardiac arrest,422,Microsoft Windows 11 Home versione 10.0.26200,24.93996,0.00021108163011,27.4238,0.2783899605,0.00028952287,CodeCarbon,C++(gcc v15.2.0),Cardiac_arrest_at_home
+depression and heart failure,425,Microsoft Windows 11 Home versione 10.0.26200,53.83632,0.00047921410274,22.9646,0.8075790405,0.0001710764913,CodeCarbon,C++(gcc v15.2.0),"""Hospitalized (1=Yes, 0=No)"""
+diabetes type one,67,Microsoft Windows 11 Home versione 10.0.26200,22.04692,0.00013636554043,21.7717,0.1316091418,0.0001253496201,CodeCarbon,C++(gcc v15.2.0),insulin_regimen_binary
+neuroblastoma,169,Microsoft Windows 11 Home versione 10.0.26200,28.07725,0.00035640442968,21.0960,0.4741771221,0.000130029261,CodeCarbon,C++(gcc v15.2.0),outcome
+sepsis and SIRS,1257,Microsoft Windows 11 Home versione 10.0.26200,56.65366,0.00052876215674,20.6425,0.4388711154,0.0001098029912,CodeCarbon,C++(gcc v15.2.0),Mortality
+cardiac arrest,422,Linux  WSL:UBUNTU versione 24.04.4,3.66309,0.00004908555193,3.5119,0.2783899676,0.00004411057195,CodeCarbon,JavaScript v18.19.1,Cardiac_arrest_at_home
+depression and heart failure,425,Linux  WSL:UBUNTU versione 24.04.4,4.67395,0.00006007796605,3.3191,0.8075790342,0.00004102818367,CodeCarbon,JavaScript v18.19.1,"""Hospitalized (1=Yes, 0=No)"""
+diabetes type one,67,Linux  WSL:UBUNTU versione 24.04.4,6.77881,0.00008175901921,0.4095,0.1316091454,0.00002851045462,CodeCarbon,JavaScript v18.19.1,insulin_regimen_binary
+neuroblastoma,169,Linux  WSL:UBUNTU versione 24.04.4,5.39648,0.00007123585492,4.3639,0.4741771184,0.00005523918854,CodeCarbon,JavaScript v18.19.1,outcome
+sepsis and SIRS,1257,Linux  WSL:UBUNTU versione 24.04.4,10.57001,0.00013292515250,9.8588,0.4388711119,0.0001197680638,CodeCarbon,JavaScript v18.19.1,Mortality
+cardiac arrest,422,Microsoft Windows 11 Home versione 10.0.26200,3.22548,0.00009401951120,1.8035,0.2783899676,0.00002340705452,CodeCarbon,JavaScript v24.13.1,Cardiac_arrest_at_home
+depression and heart failure,425,Microsoft Windows 11 Home versione 10.0.26200,3.99396,0.00010336903432,1.8386,0.8075790342,0.00002146470678,CodeCarbon,JavaScript v24.13.1,"""Hospitalized (1=Yes, 0=No)"""
+diabetes type one,67,Microsoft Windows 11 Home versione 10.0.26200,2.97487,0.00009262552246,1.5247,0.1316091454,0.00002007164962,CodeCarbon,JavaScript v24.13.1,insulin_regimen_binary
+neuroblastoma,169,Microsoft Windows 11 Home versione 10.0.26200,2.40933,0.00002904242741,1.5077,0.4741771184,0.00001803476577,CodeCarbon,JavaScript v24.13.1,outcome
+sepsis and SIRS,1257,Microsoft Windows 11 Home versione 10.0.26200,6.67584,0.00011411139748,5.3654,0.4388711119,0.00003671517595,CodeCarbon,JavaScript v24.13.1,Mortality
+cardiac arrest,422,Linux  WSL:UBUNTU versione 24.04.4,8.489689,0.00010100420687,6.1371,0.2783899676,0.00008251673425,CodeCarbon,Perl v5.38.2,Cardiac_arrest_at_home
+depression and heart failure,425,Linux  WSL:UBUNTU versione 24.04.4,14.470903,0.00017996489412,13.1327,0.8075790342,0.0001554183102,CodeCarbon,Perl v5.38.2,"""Hospitalized (1=Yes, 0=No)"""
+diabetes type one,67,Linux  WSL:UBUNTU versione 24.04.4,0.881808,0.00001228873153,0.5594,0.1316091454,0.000007000752847,CodeCarbon,Perl v5.38.2,insulin_regimen_binary
+neuroblastoma,169,Linux  WSL:UBUNTU versione 24.04.4,3.49098,0.00004273803752,2.0221,0.4741771184,0.0000245874332,CodeCarbon,Perl v5.38.2,outcome
+sepsis and SIRS,1257,Linux  WSL:UBUNTU versione 24.04.4,120.479222,0.00142910051824,114.0742,0.4388711119,0.001353543074,CodeCarbon,Perl v5.38.2,Mortality
+cardiac arrest,422,Microsoft Windows 11 Home versione 10.0.26200,9.277284,0.00013323974895,8.0489,0.2783899676,0.0000470984311,CodeCarbon,Perl v5.42.0,Cardiac_arrest_at_home
+depression and heart failure,425,Microsoft Windows 11 Home versione 10.0.26200,17.040971,0.00017672777748,15.5643,0.8075790342,0.0001051068872,CodeCarbon,Perl v5.42.0,"""Hospitalized (1=Yes, 0=No)"""
+diabetes type one,67,Microsoft Windows 11 Home versione 10.0.26200,1.225018,0.00005006631500,0.6165,0.1316091454,0.000008726494634,CodeCarbon,Perl v5.42.0,insulin_regimen_binary
+neuroblastoma,169,Microsoft Windows 11 Home versione 10.0.26200,3.165564,0.00011030460958,1.6530,0.4741771184,0.00001304005429,CodeCarbon,Perl v5.42.0,outcome
+sepsis and SIRS,1257,Microsoft Windows 11 Home versione 10.0.26200,151.027657,0.00092000592976,157.1627,0.4388711119,0.0009236152451,CodeCarbon,Perl v5.42.0,Mortality
+cardiac arrest,422,Microsoft Windows 11 Home versione 10.0.26200,5.7024,0.00011970214657,3.9576,0.2783899676,0.00002777261512,CodeCarbon,PYTHON 3.11.4,Cardiac_arrest_at_home
+depression and heart failure,425,Microsoft Windows 11 Home versione 10.0.26200,8.64031,0.00014758296945,4.0036,0.8075790342,0.00002617801726,CodeCarbon,PYTHON 3.11.4,"""Hospitalized (1=Yes, 0=No)"""
+diabetes type one,67,Microsoft Windows 11 Home versione 10.0.26200,6.45941,0.00010341503656,3.8495,0.1316091454,0.00003328515834,CodeCarbon,PYTHON 3.11.4,insulin_regimen_binary
+neuroblastoma,169,Microsoft Windows 11 Home versione 10.0.26200,7.64109,0.00015642455730,3.9384,0.4741771184,0.00003023306722,CodeCarbon,PYTHON 3.11.4,outcome
+sepsis and SIRS,1257,Microsoft Windows 11 Home versione 10.0.26200,12.99339,0.00014524279463,6.6195,0.4388711119,0.00004539534029,CodeCarbon,PYTHON 3.11.4,Mortality
+cardiac arrest,422,Linux  WSL:UBUNTU versione 24.04.4,2.27768,0.00002899575632,1.4594,0.2783899676,0.00001921540513,CodeCarbon,PYTHON 3.12.3,Cardiac_arrest_at_home
+depression and heart failure,425,Linux  WSL:UBUNTU versione 24.04.4,2.99637,0.00003820903104,2.2540,0.8075790342,0.00002874147964,CodeCarbon,PYTHON 3.12.3,"""Hospitalized (1=Yes, 0=No)"""
+diabetes type one,67,Linux  WSL:UBUNTU versione 24.04.4,3.39373,0.00005218884933,1.6412,0.1316091454,0.00002156626373,CodeCarbon,PYTHON 3.12.3,insulin_regimen_binary
+neuroblastoma,169,Linux  WSL:UBUNTU versione 24.04.4,1.60386,0.00004313574168,1.2237,0.4741771184,0.00001626914573,CodeCarbon,PYTHON 3.12.3,outcome
+sepsis and SIRS,1257,Linux  WSL:UBUNTU versione 24.04.4,3.84793,0.00004740666049,3.0615,0.4388711119,0.00003850364588,CodeCarbon,PYTHON 3.12.3,Mortality
+cardiac arrest,422,Linux  WSL:UBUNTU versione 24.04.4,5.188771065,0.00006831449048,4.1395,0.2783899676,0.00005116082327,CodeCarbon,Ruby 3.2.3,Cardiac_arrest_at_home
+depression and heart failure,425,Linux  WSL:UBUNTU versione 24.04.4,9.011845788,0.00010901669880,10.0170,0.8075790342,0.0001204851532,CodeCarbon,Ruby 3.2.3,"""Hospitalized (1=Yes, 0=No)"""
+diabetes type one,67,Linux  WSL:UBUNTU versione 24.04.4,1.01061956,0.00001602993777,0.5487,0.1316091454,0.000007914905412,CodeCarbon,Ruby 3.2.3,insulin_regimen_binary
+neuroblastoma,169,Linux  WSL:UBUNTU versione 24.04.4,1.548854017,0.00002258088012,1.1688,0.4741771184,0.00001483243037,CodeCarbon,Ruby 3.2.3,outcome
+sepsis and SIRS,1257,Linux  WSL:UBUNTU versione 24.04.4,83.1409545,0.00100884062421,77.9904,0.4388711119,0.0009679576293,CodeCarbon,Ruby 3.2.3,Mortality
+cardiac arrest,422,Microsoft Windows 11 Home versione 10.0.26200,4.0337936,0.00003290566356,3.8207,0.2783899676,0.00002489946261,CodeCarbon,Ruby 3.4.8,Cardiac_arrest_at_home
+depression and heart failure,425,Microsoft Windows 11 Home versione 10.0.26200,10.2893262,0.00022043483698,7.4420,0.8075790342,0.00004501345642,CodeCarbon,Ruby 3.4.8,"""Hospitalized (1=Yes, 0=No)"""
+diabetes type one,67,Microsoft Windows 11 Home versione 10.0.26200,0.5856899,0.00000908663956,0.5083,0.1316091454,0.000007749007286,CodeCarbon,Ruby 3.4.8,insulin_regimen_binary
+neuroblastoma,169,Microsoft Windows 11 Home versione 10.0.26200,1.3302956,0.00005359077947,1.1313,0.4741771184,0.0000108840149,CodeCarbon,Ruby 3.4.8,outcome
+sepsis and SIRS,1257,Microsoft Windows 11 Home versione 10.0.26200,76.7865036,0.00048988677066,72.8580,0.4388711119,0.0003822596383,CodeCarbon,Ruby 3.4.8,Mortality
