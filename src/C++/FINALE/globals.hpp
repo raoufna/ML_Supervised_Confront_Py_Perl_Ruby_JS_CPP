@@ -11,7 +11,7 @@
 #include <cmath>
 #include <vector>
 #include <limits>
-#include <iomanip> // Necessario per setprecision
+#include <iomanip> // Required for setprecision
 
 extern const std::string relative_path;
 extern const std::string depression_heart_failure;
@@ -22,13 +22,13 @@ extern const std::string spain_cardiac_arrest;
 
 extern const int mcc_precision;
 
-/** Classe per il calcolo del Matthews Correlation Coefficient (MCC). */
+/** Class for calculating the Matthews Correlation Coefficient (MCC). */
 class MCCEvaluator {
 public:
     static double Calculate(const arma::rowvec& predictions, const arma::rowvec& trueLabels, double threshold = 0.5);
 };
 
-// METODI
+//METHODS
 arma::mat LoadData(const std::string& filename);
 arma::rowvec LeaveOneOutCV(const arma::mat& data, const arma::rowvec& Y_values);
 void print_results(std::string dataset_name, float MCC);
