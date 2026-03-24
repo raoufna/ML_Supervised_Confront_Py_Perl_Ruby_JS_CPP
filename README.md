@@ -1,70 +1,71 @@
 ## Summary ##
 
-Questo progetto consiste in una suite di script realizzati in diversi linguaggi di programmazione (Python, C++, Ruby, Perl, JavaScript) per confrontare le loro prestazioni nell'ambito del Machine Learning.
-Per ogni dataset gli algoritmi calcolano: tempo di esecuzione(in secondi), energia consumata(in kWh) e il coefficiente di correlazione di Matthwes.
+This project consists of a suite of scripts created in various programming languages (Python, C++, Ruby, Perl, JavaScript) to compare their performance in the Machine Learning field.
+For each dataset, the algorithms calculate: execution time (in seconds), energy consumed (in kWh), and Matthews correlation coefficient.
 
 ## Installation 
 ### Python
-librerie necessarie:
+Required libraries:
 * numpy
 * pandas
 * scikit-learn
 * matplotlib
 
 ### Javascript
-librerie necessarie:
+Required libraries:
 * csv-parser
 * ml-regression-multivariate-linear
 
 ### C++
-librerie necessarie:
+Required libraries:
 * mlpack
 * armadillo
 
 ### Ruby
-librerie necessarie:
+Required libraries:
 * csv
 * ruby_linear_regression
 
 ### Perl
-librerie necessarie:
+Required libraries:
 * Text::CSV
 * Statistics::Regression
 
 ## Execution instructions ##
-Per avviare il codice, entrare nella cartella 'FINALE' relativa al linguaggio desiderato, dopodiché a console scrivere, su windows:
+To run the code, enter the 'FINALE' folder for the desired language, then type in the console on Windows:
 
-    py run_[nome_linguaggio]_script.py [nome_dataset]
+    py run_[language_name]_script.py [dataset_name]
 
-oppure in linux:
+or on Linux:
 
-    python3 run_[nome_linguaggio]_script.py [nome_dataset]
+    python3 run_[language_name]_script.py [dataset_name]
     
 
-Per avviare lo script senza il calcolo dell'energia conusmata ma solamente per vedere risultati riguardanti MCC e tempo di esecuzione calcolato dal linguaggio, sempre a console, per i linguaggi interpretati (Python, Perl, Ruby, JS), il comando è:
+To run the script without energy consumption calculation but only to view results regarding MCC and execution time calculated by the language, also in the console, for interpreted languages (Python, Perl, Ruby, JS), the command is:
 
-    [interprete] script.[ext] [nome_dataset]
+    [interpreter] script.[ext] [dataset_name]
 
-Dove `interprete` indica l'interprete del linguaggio, ad es. `py` per Python, `node` per Javascript, `perl` e `ruby` per i rispettvi.
-Invece `ext` indica l'estensione del file, che cambia in ogni linguaggio.
+Where `interpreter` indicates the language interpreter, for example `py` for Python, `node` for Javascript, `perl` and `ruby` for their respective languages.
+Instead `ext` indicates the file extension, which varies for each language.
 
-Per quanto riguarda C++, su linux i comandi sono:
+For C++, on Linux the commands are:
     
     make clean
     make
-    .\main.exe [nome_dataset]
+    .\main.exe [dataset_name]
 
-il primo comando serve per impostare solamente per la sessione corrente
+the first command is used to set it only for the current session.
 
-mentre su windows, prima di quella sequenza scrivere a console:
+On Windows, before that sequence type in the console:
 
     $env:Path = "C:\msys64\ucrt64\bin;C:\msys64\usr\bin;" + $env:Path
 
-questo serve per "iniettare" il terminale MSYS2 nel terminale Powershell corrente. 
-La modifica vale solo per la sessione corrente.
+this is used to "inject" the MSYS2 terminal into the current Powershell terminal. 
+The change applies only to the current session.
+
 ## An example ##
 
-Ecco un esempio del lancio dello script Perl e del relativo output:
+Here is an example of running the Perl script and its output:
 
     PS C:\...\src\Perl\FINALE> py run_perl_script.py
     [...]
