@@ -1,10 +1,3 @@
-README.md
-
-
-# geneExpressionFromGEO #
-
-`geneExpressionFromGEO`: an easy method to retrieve gene expression and its symbol from GEO accession code
-
 ## Summary ##
 
 Questo progetto consiste in una suite di script realizzati in diversi linguaggi di programmazione (Python, C++, Ruby, Perl, JavaScript) per confrontare le loro prestazioni nell'ambito del Machine Learning.
